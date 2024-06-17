@@ -66,7 +66,7 @@ def interactive_plot(data_file_path):
     # DLC
     dlc_file_path = select_DLC_file() 
     if dlc_file_path: 
-        results = mon_cul(dlc_file_path, fps=50, main_threshold=2.5, sub_threshold=2,distance=5, prominence=.5 )
+        results = dlc_detect(dlc_file_path, fps=50, main_threshold=2.5, sub_threshold=2,distance=5, prominence=.5 )
         dlc_peaks, dlc_start_indices, dlc_end_indices, peak_times, start_times, end_times, dlc_sub_peaks,dlc_amplitudes, dlc_auc_values, dlc_mean_speeds, dlc_max_accelerations, max_speeds, mean_accelerations, durations, displacements, absolute_maxs, dlc_sub_peaks, dlc_max_amplitudes, dlc_smoothness = results
         print('Après avoir déposé le fichier', dlc_smoothness, dlc_sub_peaks, dlc_sub_peaks_indices)
 
