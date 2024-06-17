@@ -193,7 +193,7 @@ def metrics_DLC(data, DLCpeaks, peak_starts, peak_ends, sub_peaks, fps):
     return DLCpeaks, peak_starts, peak_ends, peak_times, start_times, end_times, sub_peaks, amplitudes, auc_values, mean_speeds, max_accelerations, max_speeds, mean_accelerations, durations, displacements, absolute_maxs, dlc_max_amplitudes, dlc_smoothness
 
 
-def mon_cul(file_path, fps=50, main_threshold=1, sub_threshold=0.5, distance=5, prominence=1):
+def dlc_detect(file_path, fps=50, main_threshold=1, sub_threshold=0.5, distance=5, prominence=1):
     moving_light_x = load_data(file_path)
     gradient_data = np.gradient(moving_light_x)
     
