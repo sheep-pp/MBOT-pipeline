@@ -39,13 +39,12 @@ def play_video_segment(video_path, start_time, end_time):
                 cv2.destroyAllWindows()
                 return  
 
-        # This part is reached if the video segment ends; it will then restart unless 'q' was pressed
-
+#press q to leave video, 
     cap.release()
     cv2.destroyAllWindows()
 
 def main():
-    while ask_watch_video():  # allow asking if the user wants to watch a video
+    while ask_watch_video(): 
         start_time, end_time = get_video_segment()
         video_path = filedialog.askopenfilename(title="select video file")
         play_video_segment(video_path, start_time, end_time)
