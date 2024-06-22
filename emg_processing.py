@@ -22,13 +22,11 @@ def rms_signal(signal, window_size):
     return smoothed_signal'''
 
 def process_emg_data(emg_file_path, start_index=None, end_index=None):
-    """Process EMG data: load, rectify, and smooth with RMS and moving average."""
     # EMG data
     data = loadmat(emg_file_path)  
     emg_data_full = data['data'].squeeze()  
     fs = data['samplerate'][0][0]   
     
-    # Define the time range for analysis if not specified
     if start_index is None:
         start_index = 0
     if end_index is None or end_index > len(emg_data_full):
@@ -73,16 +71,10 @@ def process_emg_data(emg_file_path, start_index=None, end_index=None):
         burst_mean = np.mean(emg_env_scaled[start:end])
         burst_max = np.max(emg_env_scaled[start:end])
         burst_auc = np.trapz(emg_env_scaled[start:end]) / burst_duration
-            #le faire en json, à ajouter au fichier 
+            #to add in the json file 
         bursts.append({'start_time': start / fs, 'mean': burst_mean, 
                        'max': burst_max, 'duration': burst_duration, 'auc': burst_auc})
         
         print(f"Burst start at {start/fs}s, Mean={burst_mean}, Max={burst_max}, Duration={burst_duration}s, AUC={burst_auc}")
    
     return time_emg, emg_rectified, emg_env_scaled, fs, threshold, bursts
-
-'''
-peak_env = np.max(emg_smoothed)  # Maximum value of the smoothed signal
-scaling_factor = peak_rectified / peak_env
-emg_env_scaled = emg_smoothed * scaling_factor  # Apply scaling to the entire smoothed signal
-'''
