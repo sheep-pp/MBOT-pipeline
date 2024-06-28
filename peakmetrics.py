@@ -4,12 +4,12 @@ def calculate_peak_metrics(time, smoothed_force, start_of_rise_indices, peaks, r
     if isinstance(sub_peaks, np.integer):
         sub_peaks = [sub_peaks]
     
-    # Convert sub_peaks to integers and filter out invalid indices
+    # convert sub_peaks to integers
     sub_peaks = [int(sp) for sp in sub_peaks if 0 <= int(sp) < len(smoothed_force)]
     
     metrics = []
     for start, peak, end in zip(start_of_rise_indices, peaks, right_bases):
-        if end >= start:  # check the slice is non-empty
+        if end >= start:  # check the slice is not empty
             peak_range = smoothed_force[start:end+1]
             time_range = time[start:end+1]
 
@@ -32,15 +32,12 @@ def calculate_peak_metrics(time, smoothed_force, start_of_rise_indices, peaks, r
             # Force smoothness
             force_smoothness = 1 / (a_sub_peaks + 1)
 
-            # Custom metric
             sub_peaks_in_range = [sp for sp in sub_peaks if start <= sp <= end]
-            #print(f"Sub peaks in range: {sub_peaks_in_range}")
 
             a = np.sum([smoothed_force[sp] - smoothed_force[start] for sp in sub_peaks_in_range])
             b = smoothed_force[peak] - smoothed_force[start]
             max_amplitude = (a + b) / (len(sub_peaks_in_range) + 1) if len(sub_peaks_in_range) > 0 else b
             
-            #print('f_sb',sub_peaks_in_range, a, b, max_amplitude)
 
             metrics.append({
                 "AUC": auc,

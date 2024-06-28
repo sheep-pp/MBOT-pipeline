@@ -7,7 +7,7 @@ def save_adjusted_data(f_amplitudes, AUC, force_duration, mean_amplitude, max_am
                         task_duration, peaks, start_of_rise_indices, right_bases_coordinates,peak_coordinates,
                         start_of_rise_coordinates, peak_times, start_times, end_times, dlc_sub_peaks, smoothed_force, force, 
                         durations,displacements,absolute_maxs, max_speeds, mean_accelerations,dlc_max_amplitudes,dlc_smoothness,
-                        file_path):#,file_2_path):
+                        file_path):
 
     def convert(obj):
         if isinstance(obj, np.ndarray):
@@ -34,9 +34,9 @@ def save_adjusted_data(f_amplitudes, AUC, force_duration, mean_amplitude, max_am
 
 
 # attention : dlc_amplitudes : rouge - vert tandis que absolute_maxs = rouge dans les fonctions DLC. dans le json et comment ils sont nommées absolutes_maxs n'est pas pris en compte et ce qu'on nomme absolutes max c'est rouge - vert.
-        #('dlc_max_amplitudes', convert(dlc_amplitudes)), # a enlever 
+
         ('dlc_absolute_maxs',convert(dlc_amplitudes)),
-        ('dlc_max_p_sp_amplitudes', convert(dlc_max_amplitudes)), #plrs amplitudes/sommes des peaks
+        ('dlc_max_p_sp_amplitudes', convert(dlc_max_amplitudes)),
         ('dlc_AUC', convert(dlc_auc_values)),
         ('dlc_mean_speeds', convert(dlc_mean_speeds)),
         ('dlc_max_speeds', convert(max_speeds)),
@@ -67,8 +67,5 @@ def save_adjusted_data(f_amplitudes, AUC, force_duration, mean_amplitude, max_am
 
     with open(file_path, 'w') as f:
         json.dump(data_to_save, f, default=convert, indent=4, sort_keys=False)
-
-   #with open (file_2_path,'w') as f:
-        #json.dump(data_to_save,f,default=convert, indent=4, sort_keys=False)
 
     

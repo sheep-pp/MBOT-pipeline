@@ -28,10 +28,10 @@ def play_video_segment(video_path, start_time, end_time):
         while cap.isOpened():
             ret, frame = cap.read()
             if not ret:
-                break  # If no frame is returned, break from the loop
+                break  
             current_frame = cap.get(cv2.CAP_PROP_POS_FRAMES)
             if current_frame > end_frame:
-                break  # If the frame exceeds end_frame, restart video
+                break  
 
             cv2.imshow('Video', frame)
             if cv2.waitKey(int(1000 / fps)) & 0xFF == ord('q'): 
@@ -39,12 +39,13 @@ def play_video_segment(video_path, start_time, end_time):
                 cv2.destroyAllWindows()
                 return  
 
-#press q to leave video, 
+        # this part is reached if the video segment ends, it will then restart. to stop it, press  'q'
+
     cap.release()
     cv2.destroyAllWindows()
 
 def main():
-    while ask_watch_video(): 
+    while ask_watch_video():  # allow asking if the user wants to watch a video again
         start_time, end_time = get_video_segment()
         video_path = filedialog.askopenfilename(title="select video file")
         play_video_segment(video_path, start_time, end_time)
