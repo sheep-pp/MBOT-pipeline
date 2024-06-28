@@ -50,14 +50,19 @@ def interactive_plot(data_file_path):
 
     # Robot data
     data = pd.read_csv(data_file_path, sep=" ", header=None)
-    data.columns = ['Time', 'Force', 'Trigger', 'Reward', 'Adjusted_time','calib']
-    time = data['Adjusted_time'].values
+    if data.shape[1] == 5:
+        data.columns = ['Time', 'Force', 'Trigger', 'Reward', 'Adjusted_time']
+        time = data['Adjusted_time'].values
+    else:
+        data.columns = ['Time', 'Force', 'Trigger', 'Reward', 'Adjusted_time', 'calib']
+        time = data['Adjusted_time'].values
     force = data['Force'].values
+
 
     # EMG
     emg_data_included = False
-    user_response = simpledialog.askstring("Input", "Do you want to analyze EMG data? (y/n):", parent=root)
-    if user_response and user_response.lower() == 'y':
+    answer = simpledialog.askstring("Input", "Do you want to analyze EMG data? (y/n):", parent=root)
+    if answer and answer.lower() == 'y':
         emg_file_path = select_emg_file()
         if emg_file_path:
             emg_data_included = True
@@ -66,7 +71,7 @@ def interactive_plot(data_file_path):
     # DLC
     dlc_file_path = select_DLC_file() 
     if dlc_file_path: 
-        results = dlc_detect(dlc_file_path, fps=50, main_threshold=2.5, sub_threshold=2,distance=5, prominence=.5 )
+        results = peak_metrics(dlc_file_path, fps=50, main_threshold=4, sub_threshold=3.5,distance=5, prominence=.5 )
         dlc_peaks, dlc_start_indices, dlc_end_indices, peak_times, start_times, end_times, dlc_sub_peaks,dlc_amplitudes, dlc_auc_values, dlc_mean_speeds, dlc_max_accelerations, max_speeds, mean_accelerations, durations, displacements, absolute_maxs, dlc_sub_peaks, dlc_max_amplitudes, dlc_smoothness = results
         print('Après avoir déposé le fichier', dlc_smoothness, dlc_sub_peaks, dlc_sub_peaks_indices)
 
