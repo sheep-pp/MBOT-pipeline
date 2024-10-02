@@ -3,7 +3,7 @@ Multivariate analysis pipeline to assess mice upper limb recovery after SCI
 
 This pipeline enables the analysis of **force data** which is the upper graph, the **position** which is the graph below and the **EMG data** when they are available. 
 Through this interactive pipeline, you will be able to correct the peak detection algorithm which is not perfectly suited for noisy, unconsistent signals. 
-Once the modifications are made, a json file containing more than 20 metrics a coomputed and will allow you to perform a PCA analysis. 
+Once the modifications are made, a json file containing more than 20 metrics is computed and will allow you to perform a PCA analysis. 
 
 **To add points:**
 Press 'a' to add a peak (red)
