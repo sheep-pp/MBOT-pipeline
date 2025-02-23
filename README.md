@@ -18,7 +18,7 @@ Press 'b' to delete a peak offset (blue)
 To **move points** position, drap and drop them. 
 
 When you delete a point (a peak, an onset or an offset) always delete their corresponding points. 
-When many points are overlapping, it is better t
+When many points are overlapping, it is better to delete the trio and then create new ones. 
 
 It is recommanded to check the number of peaks, onset and offset after modification. They should be always at the same number
 To do so, press 'p' and check the result on the terminal. 
